@@ -7,6 +7,15 @@ cmake_minimum_required(VERSION 2.8.11)
 
 set( CGAL_BRANCH_BUILD ON CACHE INTERNAL "Create CGAL from a Git branch" FORCE)
 
+#set(FLAGS "-DWITH_examples -DWITH_demos")
+#add_definitions(${FLAGS})
+#message(STATUS "FLAGS: " ${FLAGS})
+#message(STATUS "CMAKE_CXX_FLAGS: " ${CMAKE_CXX_FLAGS})
+#set(WITH_examples ON)
+#set(WITH_demos ON)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWITH_examples=ON -DWITH_demos=ON")
+
 include(${CMAKE_SOURCE_DIR}/Installation/cmake/modules/CGAL_SCM.cmake)
 CGAL_detect_git(${CMAKE_SOURCE_DIR})
 
@@ -16,7 +25,7 @@ option( CGAL_REPORT_DUPLICATE_FILES "Switch on to start (naive) detection of dup
 message( "== CMake setup (DONE) ==\n" )
 
 # Enable testing with BUILD_TESTING
-option(BUILD_TESTING "Build the testing tree." OFF)
+option(BUILD_TESTING "Build the testing tree." ON)
 include(CTest)
 if(BUILD_TESTING AND NOT POLICY CMP0064)
   message(FATAL_ERROR "CGAL support of CTest requires CMake version 3.4 or later.

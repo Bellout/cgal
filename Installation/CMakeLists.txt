@@ -1057,7 +1057,7 @@ You must disable CGAL_ENABLE_CHECK_HEADERS and CGAL_COMPUTE_DEPENDENCIES.")
     message( "== Setting header checking ==" )
 
     find_package(Eigen3 REQUIRED)
-    find_package(Qt5 COMPONENTS Core Widgets Xml OpenGL REQUIRED)
+    find_package(Qt5 COMPONENTS Svg Core Widgets Xml OpenGL REQUIRED)
     find_package(QGLViewer)
     find_package(VTK COMPONENTS vtkImagingGeneral  vtkIOImage NO_MODULE)
     find_package(IPE)
@@ -1074,6 +1074,8 @@ ${Qt5Xml_EXECUTABLE_COMPILE_FLAGS} \
 ${CGAL_3RD_PARTY_DEFINITIONS} ${CGAL_Qt5_3RD_PARTY_DEFINITIONS} \
 ${CGAL_DEFINITIONS}"
       )
+
+    message(STATUS "compile_options: " ${compile_options})
 
     if(NOT RS_FOUND AND NOT RS3_FOUND)
       set(compile_options "${compile_options} \
