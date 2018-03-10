@@ -19,6 +19,10 @@ endif()
 # Include this package's headers first
 include_directories( BEFORE ./ ./include ../../include )
 
+include(/usr/lib/x86_64-linux-gnu/cmake/CGAL/FindQGLViewer.cmake)
+
+#set(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu/qt5/bin")
+
 # Find CGAL and CGAL Qt5
 find_package(CGAL COMPONENTS Qt5)
 
@@ -32,7 +36,7 @@ if(Qt5_FOUND)
   find_package(QGLViewer)
 endif(Qt5_FOUND)
 
-if(CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)
+#if(CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)
 
   include_directories ( ${QGLVIEWER_INCLUDE_DIR} )
 
@@ -58,36 +62,37 @@ if(CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)
   add_executable  ( AABB_demo AABB_demo.cpp ${UI_FILES} ${CGAL_Qt5_RESOURCE_FILES} ${CGAL_Qt5_MOC_FILES})
   # Link with Qt libraries
   target_link_libraries( AABB_demo PRIVATE
-    Qt5::OpenGL Qt5::Gui
-    CGAL::CGAL
-    CGAL::CGAL_Qt5
-    ${QGLVIEWER_LIBRARIES})
+      Qt5::Core Qt5::Xml Qt5::OpenGL Qt5::Gui Qt5::Svg
+      -lglut -lGLU -lGL
+      CGAL::CGAL
+      CGAL::CGAL_Qt5
+      ${QGLVIEWER_LIBRARIES})
 
   add_to_cached_list( CGAL_EXECUTABLE_TARGETS AABB_demo )
 
   include(${CGAL_MODULES_DIR}/CGAL_add_test.cmake)
   cgal_add_compilation_test(AABB_demo)
 
-else (CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)
-
-  set(AABB_MISSING_DEPS "")
-
-  if(NOT CGAL_FOUND)
-    set(AABB_MISSING_DEPS "the CGAL library, ${AABB_MISSING_DEPS}")
-  endif()
-
-  if(NOT CGAL_Qt5_FOUND)
-    set(AABB_MISSING_DEPS "CGAL_Qt5, ${AABB_MISSING_DEPS}")
-  endif()
-
-  if(NOT Qt5_FOUND)
-    set(AABB_MISSING_DEPS "Qt5, ${AABB_MISSING_DEPS}")
-  endif()
-
-  if(NOT QGLVIEWER_FOUND)
-    set(AABB_MISSING_DEPS "QGLViewer, ${AABB_MISSING_DEPS}")
-  endif()
-
-  message(STATUS "NOTICE: This demo requires ${AABB_MISSING_DEPS}and will not be compiled.")
-
-endif (CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)
+#else (CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)
+#
+#  set(AABB_MISSING_DEPS "")
+#
+#  if(NOT CGAL_FOUND)
+#    set(AABB_MISSING_DEPS "the CGAL library, ${AABB_MISSING_DEPS}")
+#  endif()
+#
+#  if(NOT CGAL_Qt5_FOUND)
+#    set(AABB_MISSING_DEPS "CGAL_Qt5, ${AABB_MISSING_DEPS}")
+#  endif()
+#
+#  if(NOT Qt5_FOUND)
+#    set(AABB_MISSING_DEPS "Qt5, ${AABB_MISSING_DEPS}")
+#  endif()
+#
+#  if(NOT QGLVIEWER_FOUND)
+#    set(AABB_MISSING_DEPS "QGLViewer, ${AABB_MISSING_DEPS}")
+#  endif()
+#
+#  message(STATUS "NOTICE: This demo requires ${AABB_MISSING_DEPS}and will not be compiled.")
+#
+#endif (CGAL_FOUND AND CGAL_Qt5_FOUND AND Qt5_FOUND AND QGLVIEWER_FOUND)

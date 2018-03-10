@@ -1055,7 +1055,6 @@ Triangulation_3/test/Triangulation_3/test_triangulation_tds_3
 cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
-cmake_install.cmake
 
 # Editors' automatic backups
 *.bak
@@ -1209,3 +1208,4 @@ gmon.*
 /Snap_rounding_2/test/Snap_rounding_2/data/out
 /Operations_on_polyhedra/examples/Operations_on_polyhedra/cgal_test_with_cmake
 /Operations_on_polyhedra/test/Operations_on_polyhedra/cgal_test_with_cmake
+/.idea/
